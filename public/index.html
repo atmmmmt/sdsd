@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b0b0f" />
+  <title>PROOTECH Video Downloader</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Cairo,system-ui,sans-serif}body{min-height:100vh;background:#09090d;color:#fff;display:grid;place-items:center;padding:24px;overflow-x:hidden}.glow{position:fixed;inset:auto auto -180px -120px;width:520px;height:520px;border-radius:50%;background:rgba(99,0,255,.20);filter:blur(85px);pointer-events:none}.wrap{width:min(820px,100%);position:relative;z-index:1}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;gap:16px}.brand{font-weight:800;letter-spacing:.5px}.brand span{color:#9f7aea}.badge{font-size:12px;color:#b8b8c4;border:1px solid #2c2c37;background:#131319;border-radius:999px;padding:8px 12px}.card{background:rgba(18,18,24,.96);border:1px solid #2b2b35;border-radius:28px;padding:34px;box-shadow:0 30px 100px rgba(0,0,0,.42)}h1{font-size:clamp(29px,5vw,46px);line-height:1.2;margin:0 0 12px}.lead{color:#a8a8b3;font-size:16px;line-height:1.9;margin:0 0 26px;max-width:650px}.row{display:flex;gap:10px}.url{flex:1;min-width:0;background:#0d0d12;color:#fff;border:1px solid #30303a;border-radius:16px;padding:15px 16px;font:inherit;outline:none;direction:ltr;text-align:left}.url:focus{border-color:#7047eb;box-shadow:0 0 0 3px rgba(112,71,235,.12)}button,select{font:inherit;border:0;border-radius:14px;padding:14px 16px}.btn{background:#6f3ff5;color:#fff;font-weight:800;cursor:pointer;white-space:nowrap}.btn:hover{filter:brightness(1.08)}.btn:disabled{opacity:.55;cursor:not-allowed}.paste{background:#24242e;color:#fff;cursor:pointer}select{background:#252530;color:#fff;cursor:pointer}.meta{margin-top:18px;display:none;gap:14px;align-items:center;background:#0f0f14;border:1px solid #292935;border-radius:18px;padding:12px}.meta img{width:128px;height:76px;object-fit:cover;border-radius:11px}.meta .title{font-weight:700}.small{font-size:13px;color:#92929f}.actions{display:flex;gap:10px;margin-top:16px}.actions .btn{flex:1}.msg{margin-top:14px;font-size:14px;color:#b8b8c4;min-height:24px}.sites{margin-top:24px;padding-top:20px;border-top:1px solid #292933}.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{font-size:12px;color:#a9a9b5;background:#101016;border:1px solid #292934;padding:7px 10px;border-radius:999px}.legal{font-size:11px;color:#747480;margin-top:18px;line-height:1.8}.footer{color:#666672;font-size:12px;text-align:center;margin-top:16px}@media(max-width:640px){.row,.actions{flex-direction:column}.card{padding:22px}.top{align-items:flex-start}.badge{display:none}.meta img{width:95px;height:64px}}
+  </style>
+</head>
+<body>
+  <div class="glow"></div>
+  <main class="wrap">
+    <div class="top"><div class="brand">PROOTECH <span>Downloader</span></div><div class="badge">مجاني • بدون تسجيل</div></div>
+    <section class="card">
+      <h1>حمّل الفيديو من رابطه</h1>
+      <p class="lead">الصق رابط فيديو عام من موقع مدعوم، افحصه، وبعدها نزّله كفيديو MP4 أو صوت MP3.</p>
+      <div class="row">
+        <input id="url" class="url" type="url" placeholder="https://example.com/video..." autocomplete="off" />
+        <button id="paste" class="paste">لصق</button>
+        <button id="check" class="btn">فحص الرابط</button>
+      </div>
+      <div id="meta" class="meta"><img id="thumb" alt="thumbnail" /><div><div id="title" class="title"></div><div id="details" class="small"></div></div></div>
+      <div class="actions"><select id="mode"><option value="mp4">MP4 — فيديو</option><option value="mp3">MP3 — صوت فقط</option></select><button id="download" class="btn">تحميل</button></div>
+      <div id="msg" class="msg"></div>
+      <div class="sites"><div class="chips"><span class="chip">YouTube</span><span class="chip">Instagram</span><span class="chip">TikTok</span><span class="chip">X / Twitter</span><span class="chip">Facebook</span><span class="chip">Vimeo</span><span class="chip">SoundCloud</span></div></div>
+      <div class="legal">استخدم الأداة فقط لتنزيل محتوى تملكه أو لديك إذن بتنزيله. المحتوى الخاص أو المحمي بـ DRM قد لا يكون مدعومًا.</div>
+    </section>
+    <div class="footer">Powered by PROOTECH AGENCY</div>
+  </main>
+<script>
+const $=s=>document.querySelector(s);const url=$('#url'),check=$('#check'),download=$('#download'),msg=$('#msg');
+function setBusy(v,text=''){check.disabled=v;download.disabled=v;msg.textContent=text}
+function fmt(sec){if(!sec)return'';const m=Math.floor(sec/60),s=Math.floor(sec%60);return `${m}:${String(s).padStart(2,'0')}`}
+$('#paste').onclick=async()=>{try{const t=await navigator.clipboard.readText();if(t){url.value=t.trim();msg.textContent='تم لصق الرابط.'}}catch{url.focus();msg.textContent='الصق الرابط يدويًا داخل الحقل.'}};
+check.onclick=async()=>{const value=url.value.trim();if(!value)return msg.textContent='حط الرابط أولاً.';setBusy(true,'عم افحص الرابط...');$('#meta').style.display='none';try{const r=await fetch('/api/info',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:value})});const data=await r.json();if(!r.ok)throw new Error(data.error||'تعذر فحص الرابط');$('#title').textContent=data.title||'Video';$('#details').textContent=[data.uploader,data.duration?fmt(data.duration):''].filter(Boolean).join(' • ');if(data.thumbnail){$('#thumb').src=data.thumbnail;$('#thumb').style.display='block'}else $('#thumb').style.display='none';$('#meta').style.display='flex';msg.textContent='الرابط جاهز للتحميل.'}catch(e){msg.textContent=e.message}finally{check.disabled=false;download.disabled=false}};
+download.onclick=async()=>{const value=url.value.trim();if(!value)return msg.textContent='حط الرابط أولاً.';setBusy(true,'عم حضّر الملف...');try{const r=await fetch('/api/download',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:value,mode:$('#mode').value})});if(!r.ok){const data=await r.json().catch(()=>({}));throw new Error(data.error||'فشل التحميل')}const blob=await r.blob();const disp=r.headers.get('content-disposition')||'';const match=disp.match(/filename\*?=(?:UTF-8''|\")?([^\";]+)/i);const name=match?decodeURIComponent(match[1].replace(/\"/g,'')):($('#mode').value==='mp3'?'audio.mp3':'video.mp4');const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000);msg.textContent='تم تجهيز التحميل.'}catch(e){msg.textContent=e.message}finally{check.disabled=false;download.disabled=false}};
+url.addEventListener('keydown',e=>{if(e.key==='Enter')check.click()});
+</script>
+</body>
+</html>
